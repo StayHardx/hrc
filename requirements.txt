@@ -1,3 +1,4 @@
+aiosmtplib==3.0.2
 anaconda-anon-usage @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_2c907yrj_5/croot/anaconda-anon-usage_1695305100095/work
 anaconda-client @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_62r593g_27/croot/anaconda-client_1694625255058/work
 anaconda-cloud-auth @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_bfydw9p19k/croot/anaconda-cloud-auth_1694462075695/work
