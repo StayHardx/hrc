@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Registration Form</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body style="background-color: beige">
+    <div
+      class="mt-5 mx-auto px-3 rounded shadow py-3"
+      style="max-width: 660px; background-color: #fff"
+    >
+      <div class="">
+        <h2 class="mb-4">Registration</h2>
+        <p class="mb-4">Tell us about yourself.</p>
+        <form id="registrationForm">
+          <!-- Name section -->
+          <div class="row mb-3">
+            <div class="col-12 col-sm-4">
+              <label for="firstName" class="form-label">First Name *</label>
+              <input
+                id="firstName"
+                type="text"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="First Name *"
+                required
+              />
+            </div>
+            <div class="col-12 col-sm-4">
+              <label for="lastName" class="form-label">Last Name *</label>
+              <input
+                id="lastName"
+                type="text"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="Last Name *"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Date of Birth section -->
+          <h3 class="py-2 text-dark">Date of Birth</h3>
+          <div class="row mb-3">
+            <div class="col-12 col-sm-4">
+              <label for="month" class="form-label">Month</label>
+              <input
+                id="month"
+                type="number"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="Month"
+                required
+                min="1"
+                max="12"
+              />
+            </div>
+            <div class="col-12 col-sm-4">
+              <label for="day" class="form-label">Day</label>
+              <input
+                id="day"
+                type="number"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="Day"
+                required
+                min="1"
+                max="31"
+              />
+            </div>
+            <div class="col-12 col-sm-4">
+              <label for="year" class="form-label">Year</label>
+              <input
+                id="year"
+                type="number"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="Year"
+                required
+                min="1900"
+                max="2007"
+              />
+            </div>
+          </div>
+
+          <!-- Email and SSN section -->
+          <div class="row mb-3">
+            <div class="col-12 col-sm-4">
+              <label for="email" class="form-label">Email address *</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="Email address *"
+                required
+              />
+            </div>
+            <div class="col-12 col-sm-4">
+              <label for="ssn" class="form-label"
+                >Social Security Number *</label
+              >
+              <input
+                id="ssn"
+                type="text"
+                class="form-control py-3"
+                style="max-width: 200px"
+                placeholder="SSN *"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Person Identifier section -->
+          <div class="row mb-3">
+            <div class="col-12 col-sm-4">
+              <label for="idType" class="form-label">ID Type *</label>
+              <select
+                id="idType"
+                class="form-select py-3"
+                style="max-width: 200px"
+                required
+              >
+                <option selected disabled>Select ID Type</option>
+                <option value="1">Passport</option>
+                <option value="2">Driver's License</option>
+                <option value="3">National ID</option>
+              </select>
+            </div>
+            <div class="col-12 col-sm-4">
+              <label for="idNumber" class="form-label">ID Number *</label>
+              <div class="input-group">
+                <input
+                  id="idNumber"
+                  type="password"
+                  class="form-control py-3"
+                  style="max-width: 200px"
+                  placeholder="ID Number *"
+                  required
+                />
+                <span class="input-group-text">
+                  <i class="bi bi-eye"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ID Front and Back Upload section -->
+          <div class="row mb-3">
+            <div class="col-12 col-sm-6">
+              <label for="imageUploadFront" class="form-label">ID Front</label>
+              <input
+                id="imageUploadFront"
+                class="form-control form-control-lg"
+                type="file"
+                style="max-width: 300px"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="imageUploadBack" class="form-label">ID Back</label>
+              <input
+                id="imageUploadBack"
+                class="form-control form-control-lg"
+                type="file"
+                style="max-width: 300px"
+                accept="image/*"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Buttons section -->
+          <div class="row">
+            <div class="col d-flex">
+              <button
+                type="submit"
+                id="submit-btn"
+                class="btn btn-primary me-2"
+              >
+                Submit
+              </button>
+              <button
+                _ngcontent-sdv-c192=""
+                type="button"
+                id="cancel"
+                mat-raised-button=""
+                aria-label="Cancel Button"
+                class="mat-focus-indicator mat-raised-button mat-button-base"
+              >
+                <span class="mat-button-wrapper">Cancel</span
+                ><span matripple="" class="mat-ripple mat-button-ripple"></span
+                ><span class="mat-button-focus-overlay"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Modal Structure -->
+      <div
+        class="modal fade"
+        id="feedbackModal"
+        tabindex="-1"
+        aria-labelledby="feedbackModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="feedbackModalLabel">
+                Application Received
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Thank you for submitting your application! We have received your
+                submission and our team is reviewing it.
+              </p>
+              <p>You will hear from us via email within the next few days.</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+
+    <script>
+      // Prevent form submission and show modal on form submit
+      document
+        .getElementById("submit-btn")
+        .addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent the form from actually submitting
+
+          // Your form validation or submission logic can go here
+
+          // Show the modal
+          var feedbackModal = new bootstrap.Modal(
+            document.getElementById("feedbackModal")
+          );
+          feedbackModal.show();
+
+          // Optionally, clear the form after submission
+          this.reset();
+        });
+    </script>
+  </body>
+</html>
