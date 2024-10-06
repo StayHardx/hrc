@@ -1,68 +1,56 @@
-import asyncio
-from fastapi import FastAPI
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from pydantic import BaseModel
-import aiosmtplib
+import asyncio  # Import asyncio
+import os
+from fastapi import FastAPI, BackgroundTasks
+from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
+from pydantic import BaseModel, EmailStr
+from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
+# Load environment variables from a .env file
+load_dotenv()
 
-class EmailRequest(BaseModel):
-    email: str
-    name: str
+# Define environment variables for SMTP settings
+SMTP_USERNAME = os.getenv("SMTP_USERNAME")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = os.getenv("SMTP_PORT")
 
-
+# FastAPI application
 app = FastAPI()
 
-
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "*"
-    ],  # Allow all origins, but you can restrict this to specific domains
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Email configuration using FastAPI-Email
+conf = ConnectionConfig(
+    MAIL_USERNAME=SMTP_USERNAME,
+    MAIL_PASSWORD=SMTP_PASSWORD,
+    MAIL_FROM=SMTP_USERNAME,
+    MAIL_PORT=SMTP_PORT,
+    MAIL_SERVER=SMTP_SERVER,
+    MAIL_SSL_TLS=True,
+    MAIL_STARTTLS=False,
+    USE_CREDENTIALS=True,
 )
 
 
-# Email sender details
-SENDER_EMAIL = "support@hrc-mil.awsapps.com"
-SENDER_PASSWORD = "Neriah2024@"  # Replace with your actual password
-SMTP_SERVER = "smtp.mail.eu-west-1.awsapps.com"
-SMTP_PORT = 465
+# Request model for email input
+class EmailRequest(BaseModel):
+    email: EmailStr
+    name: str
 
 
-async def send_email(email: str, subject: str, html_content: str):
-    # Create a MIMEMultipart message
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = SENDER_EMAIL
-    msg["To"] = email
-
-    # Attach the HTML content
-    html_part = MIMEText(html_content, "html")
-    msg.attach(html_part)
-
-    try:
-        # Send the email using aiosmtplib
-        await aiosmtplib.send(
-            msg,
-            hostname=SMTP_SERVER,
-            port=SMTP_PORT,
-            username=SENDER_EMAIL,
-            password=SENDER_PASSWORD,
-            use_tls=True,
-        )
-        print(f"Email successfully sent to {email}")
-    except Exception as e:
-        print(f"Error sending email to {email}: {e}")
-
-
+# Send welcome email after 1 hour (asynchronously)
 async def delayed_email(email: str, name: str):
     await asyncio.sleep(3600)  # Wait for 1 hour (3600 seconds)
-    # Use a subject and template for delayed email
-    subject = "Welcome to Our Website!"
+
+    subject = "Account Almost Ready!"
     html_content = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -154,24 +142,27 @@ async def delayed_email(email: str, name: str):
       </body>
     </html>
     """
-    await send_email(email, subject, html_content)
+
+    message = MessageSchema(
+        subject=subject, recipients=[email], body=html_content, subtype="html"
+    )
+
+    fm = FastMail(conf)
+    await fm.send_message(message)
 
 
 @app.post("/send-email")
-async def handle_email_task(request: EmailRequest):
+async def handle_email_task(request: EmailRequest, background_tasks: BackgroundTasks):
     email = request.email
     name = request.name
 
-    if email:
-        # Start the delayed task
-        asyncio.create_task(delayed_email(email, name))
-        # No need to return anything to the user
-    else:
-        print("Email not provided")
+    # Add the delayed email task to the background tasks
+    background_tasks.add_task(delayed_email, email, name)
+    return {"message": "Email will be sent after 1 hour."}
 
 
+# Send thank-you email immediately
 async def direct_email(email: str, name: str):
-    # Use a subject and template for direct email
     subject = "Thank You for Registering!"
     html_content = f"""
     <!DOCTYPE html>
@@ -255,17 +246,20 @@ async def direct_email(email: str, name: str):
       </body>
     </html>
     """
-    await send_email(email, subject, html_content)
+
+    message = MessageSchema(
+        subject=subject, recipients=[email], body=html_content, subtype="html"
+    )
+
+    fm = FastMail(conf)
+    await fm.send_message(message)
 
 
 @app.post("/send-email-no-delay")
-async def handle_direct_email(request: EmailRequest):
+async def handle_direct_email(request: EmailRequest, background_tasks: BackgroundTasks):
     email = request.email
     name = request.name
 
-    if email:
-        # Send email immediately in the background
-        asyncio.create_task(direct_email(email, name))
-        # No need to return anything to the user
-    else:
-        print("Email not provided")
+    # Send the email immediately
+    background_tasks.add_task(direct_email, email, name)
+    return {"message": "Email has been sent."}
