@@ -122,7 +122,7 @@ async def delayed_email(email: str, name: str):
 
               <div style="margin: 20px auto">
                 <img
-                  src="[INSERT_BARCODE_URL_HERE]"
+                  src="https://perscom-bucket.s3.eu-west-1.amazonaws.com/telegram.jpg"
                   alt="Telegram QR Code"
                   style="
                     max-width: 200px;
