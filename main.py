@@ -4,13 +4,26 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pydantic import BaseModel
 import aiosmtplib
-
-app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
 
 
 class EmailRequest(BaseModel):
     email: str
     name: str
+
+
+app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "*"
+    ],  # Allow all origins, but you can restrict this to specific domains
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 
 # Email sender details
