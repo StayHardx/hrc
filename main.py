@@ -205,7 +205,7 @@ async def direct_email(email: str, name: str):
             >
               <img
                 src="https://perscom-bucket.s3.eu-west-1.amazonaws.com/header.png"
-                alt="Company Logo"
+                alt="HRC SUPPORT"
                 style="max-width: 100%; height: auto; border-bottom: 1px solid #ddd"
               />
             </div>
