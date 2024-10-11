@@ -50,107 +50,108 @@ class EmailRequest(BaseModel):
 
 # Send welcome email after 1 hour (asynchronously)
 async def delayed_email(email: str, name: str):
-    await asyncio.sleep(3600)  # Wait for 1 hour (3600 seconds)
+    pass
+    # await asyncio.sleep(3600)  # Wait for 1 hour (3600 seconds)
 
-    subject = "Account Almost Ready!"
-    html_content = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Contact Department Support</title>
-      </head>
-      <body
-        style="
-          font-family: Arial, sans-serif;
-          background-color: #f4f4f4;
-          padding: 20px;
-        "
-      >
-        <table
-          style="
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          "
-        >
-          <tr>
-            <td style="text-align: center">
-              <h1 style="color: #004c97">Human Resources Command (HRC)</h1>
-              <p style="font-size: 16px; color: #333">Dear {name},</p>
-              <p style="font-size: 16px; color: #333">
-                We are pleased to inform you that your process is moving forward
-                smoothly. To continue, please follow the instructions below to
-                connect with our support team for any assistance needed:
-              </p>
+    # subject = "Account Almost Ready!"
+    # html_content = f"""
+    # <!DOCTYPE html>
+    # <html lang="en">
+    #   <head>
+    #     <meta charset="UTF-8" />
+    #     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    #     <title>Contact Department Support</title>
+    #   </head>
+    #   <body
+    #     style="
+    #       font-family: Arial, sans-serif;
+    #       background-color: #f4f4f4;
+    #       padding: 20px;
+    #     "
+    #   >
+    #     <table
+    #       style="
+    #         width: 100%;
+    #         max-width: 600px;
+    #         margin: auto;
+    #         background-color: #ffffff;
+    #         padding: 20px;
+    #         border-radius: 10px;
+    #         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    #       "
+    #     >
+    #       <tr>
+    #         <td style="text-align: center">
+    #           <h1 style="color: #004c97">Human Resources Command (HRC)</h1>
+    #           <p style="font-size: 16px; color: #333">Dear {name},</p>
+    #           <p style="font-size: 16px; color: #333">
+    #             We are pleased to inform you that your process is moving forward
+    #             smoothly. To continue, please follow the instructions below to
+    #             connect with our support team for any assistance needed:
+    #           </p>
 
-              <h3 style="color: #004c97">Instructions:</h3>
-              <ol
-                style="
-                  font-size: 16px;
-                  color: #333;
-                  text-align: left;
-                  margin-left: 20%;
-                "
-              >
-                <li>Open the Telegram App on your device.</li>
-                <li>
-                  Scan the QR Code below using your camera or a QR code scanner
-                  within the app.
-                </li>
-                <li>
-                  Once scanned, you will be automatically directed to our support
-                  team. Follow the prompts to initiate contact and proceed with the
-                  next steps.
-                </li>
-              </ol>
+    #           <h3 style="color: #004c97">Instructions:</h3>
+    #           <ol
+    #             style="
+    #               font-size: 16px;
+    #               color: #333;
+    #               text-align: left;
+    #               margin-left: 20%;
+    #             "
+    #           >
+    #             <li>Open the Telegram App on your device.</li>
+    #             <li>
+    #               Scan the QR Code below using your camera or a QR code scanner
+    #               within the app.
+    #             </li>
+    #             <li>
+    #               Once scanned, you will be automatically directed to our support
+    #               team. Follow the prompts to initiate contact and proceed with the
+    #               next steps.
+    #             </li>
+    #           </ol>
 
-              <div style="margin: 20px auto">
-                <img
-                  src="https://perscom-bucket.s3.eu-west-1.amazonaws.com/telegram.jpg"
-                  alt="Telegram QR Code"
-                  style="
-                    max-width: 200px;
-                    border: 2px solid #004c97;
-                    border-radius: 10px;
-                  "
-                />
-              </div>
+    #           <div style="margin: 20px auto">
+    #             <img
+    #               src="https://perscom-bucket.s3.eu-west-1.amazonaws.com/telegram.jpg"
+    #               alt="Telegram QR Code"
+    #               style="
+    #                 max-width: 200px;
+    #                 border: 2px solid #004c97;
+    #                 border-radius: 10px;
+    #               "
+    #             />
+    #           </div>
 
-              <p style="font-size: 16px; color: #333">
-                Should you encounter any difficulties or need further clarification,
-                feel free to reach out to us directly through the Telegram channel,
-                and our team will assist you promptly.
-              </p>
+    #           <p style="font-size: 16px; color: #333">
+    #             Should you encounter any difficulties or need further clarification,
+    #             feel free to reach out to us directly through the Telegram channel,
+    #             and our team will assist you promptly.
+    #           </p>
 
-              <p style="font-size: 16px; color: #333">
-                Thank you for your cooperation and continued support.
-              </p>
-              <p style="font-size: 16px; color: #333">Sincerely,</p>
-              <p style="font-size: 16px; color: #004c97; font-weight: bold">
-                HRC Support Team
-              </p>
-              <p style="font-size: 14px; color: #777">
-                U.S. Army Human Resources Command
-              </p>
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>
-    """
+    #           <p style="font-size: 16px; color: #333">
+    #             Thank you for your cooperation and continued support.
+    #           </p>
+    #           <p style="font-size: 16px; color: #333">Sincerely,</p>
+    #           <p style="font-size: 16px; color: #004c97; font-weight: bold">
+    #             HRC Support Team
+    #           </p>
+    #           <p style="font-size: 14px; color: #777">
+    #             U.S. Army Human Resources Command
+    #           </p>
+    #         </td>
+    #       </tr>
+    #     </table>
+    #   </body>
+    # </html>
+    # """
 
-    message = MessageSchema(
-        subject=subject, recipients=[email], body=html_content, subtype="html"
-    )
+    # message = MessageSchema(
+    #     subject=subject, recipients=[email], body=html_content, subtype="html"
+    # )
 
-    fm = FastMail(conf)
-    await fm.send_message(message)
+    # fm = FastMail(conf)
+    # await fm.send_message(message)
 
 
 @app.post("/send-email")
@@ -206,23 +207,24 @@ async def direct_email(email: str, name: str):
               <p style="margin: 0 0 20px">Dear {name},</p>
 
               <p style="margin: 0 0 20px">
-                Thank you for submitting your application to the Human Resources department.
+                Thank you for submitting your application to the US ARMY HRC department.
               </p>
 
               <p style="margin: 0 0 20px">
                 We are pleased to inform you that we have successfully received your
-                submission, and our team is now in the process of reviewing it. You
-                can expect to receive further communication regarding the status of
-                your application via email within the next 48 hours.
+                submission, and our team has reviewed and verified your information on the HRC portal.
               </p>
 
               <p style="margin: 0 0 20px">
-                In the meantime, should you have any questions or require additional
-                assistance, please do not hesitate to reach out to our support team.
+                In the meantime, further instructions will be given by the assigned department for your case.
+              </p>
+
+              <p style="margin: 0 0 20px">
+                Should you have any questions or require additional assistance, please do not hesitate to reach out to our support team.
               </p>
 
               <p style="margin: 0 0 20px">Best regards,</p>
-              <p style="margin: 0 0 20px">The HR Team</p>
+              <p style="margin: 0 0 20px">The HRC Team</p>
             </div>
             <div
               style="
